@@ -10,4 +10,11 @@ onHide(() => {
   console.log("App Hide");
 });
 </script>
+<script lang="ts">
+	export default {
+		options: {
+			styleIsolation: 'shared', // 解除样式隔离
+		},
+	}
+</script>
 <style></style>

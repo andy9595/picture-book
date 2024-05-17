@@ -1,10 +1,13 @@
+<script lang="ts">
+	export default {
+		options: {
+			styleIsolation: 'shared', // 解除样式隔离
+		},
+	}
+</script>
 <script setup lang="ts">
 	// // 当前活跃下表
-	// const activeIndex = ref<number>(0)
-	// // 改变页面时赋值当前活跃下标
-	// const swiperBanner = (e) => {
-	// 	activeIndex.value = e.target.current
-	// }
+	const activeIndex = ref<number>(0)
 	// 轮播图数据数据
 	const bannberImgList = ref(
 		[{
@@ -21,60 +24,65 @@
 		}
 		],
 	)
-	// // 点击轮播图指示点
-	// const clickItem = (value : number) => {
-	// 	activeIndex.value = value
-	// }
-	// // 轮播图指示点样式
-	// const dotStyle = {
-	// 	backgroundColor: 'rgba(0, 0, 0, .3)',
-	// 	border: '1px rgba(0, 0, 0, .3) solid',
-	// 	color: '#fff',
-	// 	selectedBackgroundColor: 'rgba(0, 0, 0, .9)',
-	// 	selectedBorder: '1px rgba(0, 0, 0, .9) solid'
-	// }
 </script>
 <template>
-
-	<!-- <view class="banner-wrap">
-		<uni-swiper-dot class='banner-swiper-wrap' @clickItem="clickItem" :info="bannberImgList" :current="activeIndex"
-			mode="round" :dots-styles="dotStyle">
-			<swiper @change="swiperBanner">
-				<swiper-item v-for="(item, index) in bannberImgList" :key="index">
-					<image class="banner-img" :src="item.url"></image>
-				</swiper-item>
-			</swiper>
-		</uni-swiper-dot>
-	</view> -->
 	<view class='banner-wrap'>
-		<uv-swiper 
-					:list="bannberImgList" 
-					previousMargin="30" 
-					nextMargin="30" 
-					circular 
-					:autoplay="false" 
-					radius="5" 
-					bgColor="#ffffff">
-				</uv-swiper>
+
+		<uv-swiper :list="bannberImgList" @change="e => activeIndex = e.current" autoplay height='86'>
+			<template #indicator>
+				<view class="indicator">
+					<view class="indicator__dot" v-for="(item, index) in bannberImgList" :key="index"
+						:class="[index === activeIndex && 'indicator__dot--active']"></view>
+				</view>
+			</template>
+		</uv-swiper>
 	</view>
 </template>
 
 
 <style lang="scss" scoped>
 	.banner-wrap {
-		padding: 30rpx;
-		overflow: hidden;
+		padding: 10rpx 20rpx;
+		// 调整轮播图内容样式
+		:deep(.uv-swiper) {
+			background-color: #fff !important;
 
-		.uv-swiper__wrapper__item__wrapper {
-			padding: 0 30rpx;
+			.uv-swiper__wrapper {
+				.uv-swiper__wrapper__item__wrapper {
+					padding: 0 10rpx;
+					border-radius: 10rpx;
 
-			
+					.uv-swiper__wrapper__item__wrapper__image {
+						border-radius: 30rpx !important;
+					}
+				}
+			}
 		}
 
-	}
-	::v-deep .uv-swiper__wrapper__item__wrapper__image {
-		border-radius: 20rpx;
-	}
 
-	
+		@mixin flex($direction: row) {
+			/* #ifndef APP-NVUE */
+			display: flex;
+			/* #endif */
+			flex-direction: $direction;
+		}
+
+		.indicator {
+			@include flex(row);
+			justify-content: center;
+
+			&__dot {
+				height: 20rpx;
+				width: 20rpx;
+				border-radius: 50%;
+				background-color: rgba(255, 255, 255, 0.35);
+				margin: 0 5px;
+				transition: background-color 0.3s;
+
+				&--active {
+					background-color: #ffffff;
+				}
+			}
+		}
+	}
 </style>
