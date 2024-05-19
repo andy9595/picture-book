@@ -1,11 +1,9 @@
-
 <template>
 	<view class="wrap">
 		<view class="content">
-			<view v-for="item in bannberImgList" class="images-wrap">
+			<view v-for="(item,index) in imgList" class="images-wrap" :key="index">
 				<image :src="item.url" mode='aspectFill'></image>
 			</view>
-
 		</view>
 
 	</view>
@@ -13,8 +11,8 @@
 </template>
 
 <script setup lang="ts">
-	// 轮播图数据数据
-	const bannberImgList = ref(
+	// 广告图数据数据
+	const imgList = ref(
 		[{
 			url: 'https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/shuijiao.jpg',
 		},
@@ -27,7 +25,7 @@
 
 <style lang="scss">
 	.wrap {
-		height: 180rpx;
+		padding-bottom: 30rpx;
 
 		.content {
 			height: 100%;
