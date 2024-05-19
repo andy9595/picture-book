@@ -6,6 +6,8 @@
 	}
 </script>
 <script setup lang="ts">
+	// banner高度
+	const bannerHeight = ref('230rpx')
 	// // 当前活跃下表
 	const activeIndex = ref<number>(0)
 	// 轮播图数据数据
@@ -28,7 +30,7 @@
 <template>
 	<view class='banner-wrap'>
 
-		<uv-swiper :list="bannberImgList" @change="e => activeIndex = e.current" autoplay height='86'>
+		<uv-swiper :list="bannberImgList" @change="e => activeIndex = e.current" autoplay>
 			<template #indicator>
 				<view class="indicator">
 					<view class="indicator__dot" v-for="(item, index) in bannberImgList" :key="index"
@@ -42,18 +44,24 @@
 
 <style lang="scss" scoped>
 	.banner-wrap {
-		padding: 10rpx 20rpx;
+		padding: 22rpx 0;
+
 		// 调整轮播图内容样式
 		:deep(.uv-swiper) {
 			background-color: #fff !important;
+			height: v-bind(bannerHeight) !important;
 
 			.uv-swiper__wrapper {
+				height: 100% !important;
+
 				.uv-swiper__wrapper__item__wrapper {
 					padding: 0 10rpx;
 					border-radius: 10rpx;
+					height: 100% !important;
 
 					.uv-swiper__wrapper__item__wrapper__image {
 						border-radius: 30rpx !important;
+						height: 100% !important;
 					}
 				}
 			}
@@ -76,7 +84,7 @@
 				width: 20rpx;
 				border-radius: 50%;
 				background-color: rgba(255, 255, 255, 0.35);
-				margin: 0 5px;
+				margin: 0 5rpx;
 				transition: background-color 0.3s;
 
 				&--active {
