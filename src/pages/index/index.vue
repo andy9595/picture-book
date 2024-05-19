@@ -5,6 +5,8 @@
 	import AdvertisementWrap from './components/advertisement/index.vue'
 	// 金刚区组件
 	import Diamond from './components/diamond/index.vue'
+	// tabs选项卡组件
+	import TabsWrap from './components/tabs/index.vue'
 
 	// 请求首页数据的Loading
 	const loading = ref<boolean>(true);
@@ -17,11 +19,13 @@
 <template>
 	<view class="index-wrap">
 		<!-- 顶部轮播图组件 -->
-		<BannerWrap :loading="loading"></BannerWrap>
+		<BannerWrap :loading="loading" />
 		<!-- 轮播图下方广告图组件 -->
-		<AdvertisementWrap :loading="loading"></AdvertisementWrap>
+		<AdvertisementWrap :loading="loading" />
 		<!-- 金刚区组件  -->
-		<Diamond :loading="loading"></Diamond>
+		<Diamond :loading="loading" />
+		<!-- 选项卡组件 -->
+		<TabsWrap />
 	</view>
 </template>
 

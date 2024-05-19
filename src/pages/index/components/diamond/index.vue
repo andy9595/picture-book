@@ -35,7 +35,7 @@
 		<uv-skeletons :loading="props.loading" :skeleton="skeletonConfig">
 			<!-- 金刚区区域 -->
 			<view class='content'>
-				<view v-for="item in diamondData" class='diamond-wrap'>
+				<view v-for="(item,index) in diamondData" class='diamond-wrap' :key="index">
 					<view class="diamond-icon">
 						<image :src="item.url" mode='aspectFill'></image>
 					</view>
@@ -47,6 +47,8 @@
 </template>
 <style lang="scss" scoped>
 	.wrap {
+		height: 130rpx;
+
 		.content {
 			display: flex;
 			justify-content: space-around;
