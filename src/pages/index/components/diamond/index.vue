@@ -1,4 +1,14 @@
 <script lang="ts" setup>
+	// 导入骨架屏配置
+	import { skeletonConfig } from './skeleton-config'
+	interface Props {
+		loading : boolean,
+		data : any
+	}
+	const props = withDefaults(defineProps<Props>(), {
+		loading: true,
+		data: () => ({})
+	})
 	// 金刚区域数据
 	const diamondData = ref(
 		[{
@@ -22,15 +32,17 @@
 </script>
 <template>
 	<view class='wrap'>
-		<!-- 金刚区区域 -->
-		<view class='content'>
-			<view v-for="item in diamondData" class='diamond-wrap'>
-				<view class="diamond-icon">
-					<image :src="item.url" mode='aspectFill'></image>
+		<uv-skeletons :loading="props.loading" :skeleton="skeletonConfig">
+			<!-- 金刚区区域 -->
+			<view class='content'>
+				<view v-for="item in diamondData" class='diamond-wrap'>
+					<view class="diamond-icon">
+						<image :src="item.url" mode='aspectFill'></image>
+					</view>
+					<text class='diamond-title'>{{item.content}}</text>
 				</view>
-				<text class='diamond-title'>{{item.content}}</text>
 			</view>
-		</view>
+		</uv-skeletons>
 	</view>
 </template>
 <style lang="scss" scoped>

@@ -5,15 +5,23 @@
 	import AdvertisementWrap from './components/advertisement/index.vue'
 	// 金刚区组件
 	import Diamond from './components/diamond/index.vue'
+
+	// 请求首页数据的Loading
+	const loading = ref<boolean>(true);
+	onMounted(() => {
+		setTimeout(() => {
+			loading.value = false
+		}, 2000)
+	})
 </script>
 <template>
 	<view class="index-wrap">
 		<!-- 顶部轮播图组件 -->
-		<BannerWrap></BannerWrap>
+		<BannerWrap :loading="loading"></BannerWrap>
 		<!-- 轮播图下方广告图组件 -->
-		<AdvertisementWrap></AdvertisementWrap>
+		<AdvertisementWrap :loading="loading"></AdvertisementWrap>
 		<!-- 金刚区组件  -->
-		<Diamond></Diamond>
+		<Diamond :loading="loading"></Diamond>
 	</view>
 </template>
 

@@ -6,9 +6,17 @@
 	}
 </script>
 <script setup lang="ts">
-	// banner高度
-	const bannerHeight = ref('230rpx')
-	// // 当前活跃下表
+	// 导入骨架屏配置
+	import { skeletonConfig, bannerHeight } from './skeleton-config'
+	interface Props {
+		loading : boolean,
+		data : any
+	}
+	const props = withDefaults(defineProps<Props>(), {
+		loading: true,
+		data: () => ({})
+	})
+	// 当前活跃下表
 	const activeIndex = ref<number>(0)
 	// 轮播图数据数据
 	const bannberImgList = ref(
@@ -29,15 +37,16 @@
 </script>
 <template>
 	<view class='banner-wrap'>
-
-		<uv-swiper :list="bannberImgList" @change="e => activeIndex = e.current" autoplay>
-			<template #indicator>
-				<view class="indicator">
-					<view class="indicator__dot" v-for="(item, index) in bannberImgList" :key="index"
-						:class="[index === activeIndex && 'indicator__dot--active']"></view>
-				</view>
-			</template>
-		</uv-swiper>
+		<uv-skeletons :loading="props.loading" :skeleton="skeletonConfig">
+			<uv-swiper :list="bannberImgList" @change="e => activeIndex = e.current" autoplay>
+				<template #indicator>
+					<view class="indicator">
+						<view class="indicator__dot" v-for="(item, index) in bannberImgList" :key="index"
+							:class="[index === activeIndex && 'indicator__dot--active']"></view>
+					</view>
+				</template>
+			</uv-swiper>
+		</uv-skeletons>
 	</view>
 </template>
 

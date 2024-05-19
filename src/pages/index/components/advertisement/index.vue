@@ -1,16 +1,28 @@
 <template>
 	<view class="wrap">
-		<view class="content">
-			<view v-for="(item,index) in imgList" class="images-wrap" :key="index">
-				<image :src="item.url" mode='aspectFill'></image>
+		<uv-skeletons :loading="props.loading" :skeleton="skeletonConfig">
+			<view class="content">
+				<view v-for="(item,index) in imgList" class="images-wrap" :key="index">
+					<image :src="item.url" mode='aspectFill'></image>
+				</view>
 			</view>
-		</view>
+		</uv-skeletons>
 
 	</view>
 
 </template>
 
 <script setup lang="ts">
+	// 导入骨架屏配置
+	import { skeletonConfig } from './skeleton-config'
+	interface Props {
+		loading : boolean,
+		data : any
+	}
+	const props = withDefaults(defineProps<Props>(), {
+		loading: true,
+		data: () => ({})
+	})
 	// 广告图数据数据
 	const imgList = ref(
 		[{
