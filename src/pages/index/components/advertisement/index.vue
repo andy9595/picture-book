@@ -1,9 +1,9 @@
 <template>
 	<view class="wrap">
 		<uv-skeletons :loading="props.loading" :skeleton="skeletonConfig">
-			<view class="content">
-				<view v-for="(item,index) in imgList" class="images-wrap" :key="index">
-					<image :src="item.url" mode='aspectFill'></image>
+			<view class="content" v-if="props?.data?.length>0">
+				<view v-for="(item,index) in props?.data" class="images-wrap" :key="index">
+					<image :src="item.image" mode='aspectFill'></image>
 				</view>
 			</view>
 		</uv-skeletons>
@@ -17,22 +17,12 @@
 	import { skeletonConfig } from './skeleton-config'
 	interface Props {
 		loading : boolean,
-		data : any
+		data : Array<any>
 	}
 	const props = withDefaults(defineProps<Props>(), {
 		loading: true,
-		data: () => ({})
+		data: () => []
 	})
-	// 广告图数据数据
-	const imgList = ref(
-		[{
-			url: 'https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/shuijiao.jpg',
-		},
-		{
-			url: 'https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/shuijiao.jpg',
-		},
-		],
-	)
 </script>
 
 <style lang="scss" scoped>

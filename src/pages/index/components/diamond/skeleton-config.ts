@@ -5,5 +5,5 @@
 export const skeletonConfig = ref([{
 	type: 'line',
 	num: 1,
-	style: [`height: 130rpx`]
+	style: [`height: 150rpx`]
 }])

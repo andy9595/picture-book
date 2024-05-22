@@ -3,43 +3,23 @@
 	import { skeletonConfig } from './skeleton-config'
 	interface Props {
 		loading : boolean,
-		data : any
+		data : Array<any>
 	}
 	const props = withDefaults(defineProps<Props>(), {
 		loading: true,
-		data: () => ({})
+		data: () => []
 	})
-	// 金刚区域数据
-	const diamondData = ref(
-		[{
-			url: 'https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/shuijiao.jpg',
-			content: '绘本VIP'
-		},
-		{
-			url: 'https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/shuijiao.jpg',
-			content: '小学英语'
-		},
-		{
-			url: 'https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/shuijiao.jpg',
-			content: '零基础英语'
-		},
-		{
-			url: 'https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/shuijiao.jpg',
-			content: '双语数学课'
-		},
-		],
-	)
 </script>
 <template>
 	<view class='wrap'>
 		<uv-skeletons :loading="props.loading" :skeleton="skeletonConfig">
 			<!-- 金刚区区域 -->
 			<view class='content'>
-				<view v-for="(item,index) in diamondData" class='diamond-wrap' :key="index">
+				<view v-for="(item,index) in props?.data" class='diamond-wrap' :key="index">
 					<view class="diamond-icon">
-						<image :src="item.url" mode='aspectFill'></image>
+						<image :src="item.icon" mode='aspectFill'></image>
 					</view>
-					<text class='diamond-title'>{{item.content}}</text>
+					<text class='diamond-title'>{{item.text}}</text>
 				</view>
 			</view>
 		</uv-skeletons>
@@ -47,8 +27,7 @@
 </template>
 <style lang="scss" scoped>
 	.wrap {
-		height: 130rpx;
-
+		margin-bottom:20rpx;
 		.content {
 			display: flex;
 			justify-content: space-around;
