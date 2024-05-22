@@ -52,7 +52,7 @@
 <style lang='scss' scoped>
 	.wrap {
 		margin-top: 20rpx;
-		background-color: #eaf8ff;
+		background: linear-gradient(to bottom, #ddf3ff 0%, #ffffff 21%, #ffffff 80%, #ddf3ff 100%);
 		border-radius: 20rpx;
 		padding: 40rpx 30rpx;
 
@@ -68,7 +68,7 @@
 
 		swiper {
 			padding-top: 32rpx;
-			height: 690rpx !important;
+			height: 740rpx !important;
 
 			.swiper-item {
 				display: flex;
@@ -82,18 +82,18 @@
 
 				/* 第二排 */
 				&:nth-child(n+4) {
-					margin-top: 90rpx;
+					margin-top: 50rpx;
 				}
 
 
 				.diamond-title {
 					font-size: 24rpx;
-					padding:5rpx 16rpx;
+					padding: 5rpx 16rpx;
 				}
 
 				.book-img {
 					width: 190rpx;
-					height: 190rpx;
+					height: 230rpx;
 					margin: 0 auto;
 					margin-bottom: 4rpx;
 
