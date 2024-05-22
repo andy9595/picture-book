@@ -38,6 +38,10 @@
 					<view class="book-item" v-for="(bookItem,bookIndex) in swiperItem" :key="bookIndex">
 						<view class="book-img">
 							<image :src="bookItem.image" mode='aspectFill'></image>
+							<view class='book-type'>
+								<view class='language'>中文
+								</view>
+							</view>
 						</view>
 						<text class='diamond-title'>{{bookItem.title}}</text>
 					</view>
@@ -92,6 +96,7 @@
 				}
 
 				.book-img {
+					position: relative;
 					width: 190rpx;
 					height: 230rpx;
 					margin: 0 auto;
@@ -101,6 +106,27 @@
 						border-radius: 10rpx;
 						width: 100%;
 						height: 100%;
+					}
+
+					.book-type {
+						position: absolute;
+						bottom: 0;
+						right: 0;
+						height: 16%;
+						background-color: rgba(0, 0, 0, 0.5);
+						border-radius: 24rpx 0 0 0;
+						width: 70%;
+
+						.language {
+							padding-left: 18rpx;
+							font-size: 22rpx;
+							color: #fff;
+							display: flex;
+							align-items: center;
+							height: 100%;
+							text-align: left;
+						}
+
 					}
 				}
 			}
