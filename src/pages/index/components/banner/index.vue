@@ -14,34 +14,19 @@
 	}
 	const props = withDefaults(defineProps<Props>(), {
 		loading: true,
-		data: () => ({})
+		data: () => []
 	})
 	// 当前活跃下表
 	const activeIndex = ref<number>(0)
-	// 轮播图数据数据
-	const bannberImgList = ref(
-		[{
-			url: 'https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/shuijiao.jpg',
-			content: '内容 A'
-		},
-		{
-			url: 'https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/shuijiao.jpg',
-			content: '内容 B'
-		},
-		{
-			url: 'https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/shuijiao.jpg',
-			content: '内容 C'
-		}
-		],
-	)
 </script>
 <template>
 	<view class='banner-wrap'>
 		<uv-skeletons :loading="props.loading" :skeleton="skeletonConfig">
-			<uv-swiper :list="bannberImgList" @change="e => activeIndex = e.current" autoplay>
+			<uv-swiper v-if="props?.data?.length>0" keyName="image" :list="props.data"
+				@change="e => activeIndex = e.current" autoplay>
 				<template #indicator>
 					<view class="indicator">
-						<view class="indicator__dot" v-for="(item, index) in bannberImgList" :key="index"
+						<view class="indicator__dot" v-for="(item, index) in props.data" :key="index"
 							:class="[index === activeIndex && 'indicator__dot--active']"></view>
 					</view>
 				</template>

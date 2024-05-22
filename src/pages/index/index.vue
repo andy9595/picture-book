@@ -1,4 +1,8 @@
 <script setup lang="ts">
+	import { onLoad } from '@dcloudio/uni-app';
+	// 引入接口
+	import { indexData } from '@/api/modules/index'
+	import type { Data } from '@/api/modules/http-interface'
 	// 顶部轮播图组件
 	import BannerWrap from './components/banner/index.vue'
 	// 轮播图下方广告图组件
@@ -10,16 +14,30 @@
 
 	// 请求首页数据的Loading
 	const loading = ref<boolean>(true);
-	onMounted(() => {
-		setTimeout(() => {
-			loading.value = false
-		}, 2000)
+	// 首页基础数据接口数据集合
+	const dataConfig : Data = reactive({
+		// 顶部banners
+		banners: null,
 	})
+
+	onLoad(() => {
+		getIndexBaeData()
+	})
+	// 获取首页基础数据
+	const getIndexBaeData = async () => {
+		const res = await indexData()
+		if (res.code === 200) {
+			loading.value = false;
+			for (let key in dataConfig) {
+				dataConfig[key] = res.data[key]
+			}
+		}
+	}
 </script>
 <template>
 	<view class="index-wrap">
 		<!-- 顶部轮播图组件 -->
-		<BannerWrap :loading="loading" />
+		<BannerWrap :loading="loading" :data="dataConfig?.banners" />
 		<!-- 轮播图下方广告图组件 -->
 		<AdvertisementWrap :loading="loading" />
 		<!-- 金刚区组件  -->
