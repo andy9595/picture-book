@@ -11,6 +11,8 @@
 	import Diamond from './components/diamond/index.vue'
 	// tabs选项卡组件
 	import TabsWrap from './components/tabs/index.vue'
+	// 精选绘本组件
+	import Handpicks from './components/handpicks/index.vue'
 
 	// 请求首页数据的Loading
 	const loading = ref<boolean>(true);
@@ -23,7 +25,9 @@
 		// 金刚区
 		diamondList: [],
 		// 选项卡区
-		tabList: []
+		tabList: [],
+		// 精选绘本
+		handpickList: []
 	})
 
 
@@ -47,6 +51,8 @@
 			dataConfig.diamondList = data?.diamond_regions || []
 			// 选项卡区赋值
 			dataConfig.tabList = data?.sliding_block || []
+			// 精选绘本赋值
+			dataConfig.handpickList = data?.handpicks || []
 		} else {
 			toast.value && (toast.value as any).show({
 				type: 'default',
@@ -72,7 +78,9 @@
 		<!-- 选项卡组件 -->
 		<TabsWrap :loading="loading" :data="dataConfig.tabList" />
 		<!-- 吐司提示组件 -->
-		<uv-toast ref="toast"></uv-toast>
+		<uv-toast ref="toast" />
+		<!-- 精选绘本组件 -->
+		<Handpicks :loading="loading" :data="dataConfig.handpickList" />
 	</view>
 </template>
 

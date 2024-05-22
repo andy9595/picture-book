@@ -15,7 +15,6 @@ export interface Response {
      * 状态标志，Success 或者 Fail
      */
     status: string;
-    [property: string]: any;
 }
 
 /**
@@ -46,7 +45,6 @@ export interface Data {
      * 滑块区
      */
     sliding_block: SlidingBlock[];
-    [property: string]: any;
 }
 
 export interface Banner {
@@ -58,7 +56,6 @@ export interface Banner {
      * 跳转
      */
     jump: BannerJump;
-    [property: string]: any;
 }
 
 /**
@@ -77,7 +74,6 @@ export interface BannerJump {
      * 跳转webview url地址
      */
     url?: null | string;
-    [property: string]: any;
 }
 
 export interface DiamondRegion {
@@ -93,7 +89,6 @@ export interface DiamondRegion {
      * 文本
      */
     text: string;
-    [property: string]: any;
 }
 
 /**
@@ -112,7 +107,6 @@ export interface DiamondRegionJump {
      * 跳转webview url地址
      */
     url?: null | string;
-    [property: string]: any;
 }
 
 export interface Handpick {
@@ -156,7 +150,6 @@ export interface Handpick {
      * 标题
      */
     title: string;
-    [property: string]: any;
 }
 
 /**
@@ -166,7 +159,6 @@ export interface HandpickJump {
     jump_type: number;
     pages?: null | string;
     url?: null | string;
-    [property: string]: any;
 }
 
 export interface SlidingBlock {
@@ -192,5 +184,4 @@ export interface SlidingBlockJump {
     jump_type: number;
     pages?: null | string;
     url?: null | string;
-    [property: string]: any;
 }
