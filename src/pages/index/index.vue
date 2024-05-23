@@ -1,8 +1,7 @@
 <script setup lang="ts">
-	import { onReady } from '@dcloudio/uni-app';
+	import { onReady, onPullDownRefresh } from '@dcloudio/uni-app';
 	// 引入接口
 	import { indexData } from '@/api/modules/index'
-	import type { Data } from '@/api/modules/http-interface'
 	// 顶部轮播图组件
 	import BannerWrap from './components/banner/index.vue'
 	// 轮播图下方广告图组件
@@ -17,7 +16,7 @@
 	// 请求首页数据的Loading
 	const loading = ref<boolean>(true);
 	// 首页基础数据接口数据集合
-	const dataConfig : Data = reactive({
+	const dataConfig = reactive<{ [k : string] : any }>({
 		// 顶部banners
 		banners: [],
 		// 瓷片区
@@ -27,15 +26,19 @@
 		// 选项卡区
 		tabList: [],
 		// 精选绘本
-		handpickList: []
+		handpickList: [],
+
 	})
 
 
 	// 获取首页基础数据
 	const getIndexBaeData = async () => {
+		loading.value = true;
 		const { code = 0, data, message = '' } = await indexData()
 		if (code === 200) {
-			loading.value = false;
+			setTimeout(() => {
+				loading.value = false;
+			}, 3000)
 			// banner赋值
 			dataConfig.banners = data?.banners || [];
 			// 瓷片区赋值
@@ -60,12 +63,17 @@
 			})
 		}
 	}
+	// 吐司提示Dom
+	const toast = ref(null);
 	// 页面加载时
 	onReady(() => {
 		getIndexBaeData()
 	})
-	// 吐司提示Dom
-	const toast = ref(null);
+	// 下拉刷新时
+	onPullDownRefresh(async () => {
+		await getIndexBaeData()
+		uni.stopPullDownRefresh()
+	})
 </script>
 <template>
 	<view class="index-wrap">
@@ -77,10 +85,10 @@
 		<Diamond :loading="loading" :data="dataConfig.diamondList" />
 		<!-- 选项卡组件 -->
 		<TabsWrap :loading="loading" :data="dataConfig.tabList" />
-		<!-- 吐司提示组件 -->
-		<uv-toast ref="toast" />
 		<!-- 精选绘本组件 -->
 		<Handpicks :loading="loading" :data="dataConfig.handpickList" />
+		<!-- 吐司提示组件 -->
+		<uv-toast :loading="loading" ref="toast" />
 	</view>
 </template>
 
