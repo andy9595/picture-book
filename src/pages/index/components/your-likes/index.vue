@@ -1,3 +1,10 @@
+<script lang="ts">
+	export default {
+		options: {
+			styleIsolation: 'shared', // 解除样式隔离
+		},
+	}
+</script>
 <script lang='ts' setup>
 	import {
 		guid
@@ -59,8 +66,8 @@
 		</view>
 		<!-- 瀑布流区域 -->
 		<view class='list-wrap'>
-			<uv-waterfall ref="waterfall" v-model="yourLikeList" :add-time="10" left-gap="10rpx" right-gap="10rpx"
-				column-gap="20rpx" @changeList="changeList">
+			<uv-waterfall ref="waterfall" v-model="yourLikeList" :add-time="10" column-gap="20rpx"
+				@changeList="changeList">
 				<!-- 第一列数据 -->
 				<template #list1>
 					<!-- 为了磨平部分平台的BUG，必须套一层view -->
@@ -83,7 +90,7 @@
 									<view class='user-info' v-show="item.published_author">
 										<!-- 用户头像 -->
 										<view class='user-avatar'>
-											<uv-avatar size='20' :src="item.published_avatar" />
+											<uv-avatar :src="item.published_avatar" />
 										</view>
 										<!-- 用户名 -->
 										<text class='user-name'>{{item.published_author}}</text>
@@ -92,6 +99,8 @@
 									<view class='count' v-show="item.hits">{{item.hits}}</view>
 								</view>
 							</view>
+							<view class='waterfall-item__money-type' v-if="item.read==='vip'">VIP</view>
+
 						</view>
 					</view>
 				</template>
@@ -117,7 +126,7 @@
 									<view class='user-info' v-show="item.published_author">
 										<!-- 用户头像 -->
 										<view class='user-avatar'>
-											<uv-avatar size='20' :src="item.published_avatar" />
+											<uv-avatar :src="item.published_avatar" />
 										</view>
 										<!-- 用户名 -->
 										<text class='user-name'>{{item.published_author}}</text>
@@ -126,6 +135,7 @@
 									<view class='count' v-show="item.hits">{{item.hits}}</view>
 								</view>
 							</view>
+							<view class='waterfall-item__money-type' v-if="item.read==='vip'">VIP</view>
 						</view>
 					</view>
 				</template>
@@ -142,7 +152,6 @@
 
 	.wrap {
 		margin-top: 30rpx;
-		padding: 0rpx 20rpx;
 
 		/* 布局标题 */
 		.wrap-title {
@@ -158,6 +167,23 @@
 				margin-top: 12px;
 				border-radius: 8px;
 				box-shadow: 3rpx 3rpx 6rpx 2rpx rgba(0, 0, 0, 0.2);
+				position: relative;
+
+
+				&__money-type {
+					position: absolute;
+					padding: 6rpx 20rpx;
+					background-color: #fed500;
+					border-radius: 0 0 16rpx 0;
+					color: #6c3500;
+					left: 0;
+					top: 0;
+					font-size: 22rpx;
+					font-weight: bold;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+				}
 
 				&__image {
 					width: 100%;
@@ -218,6 +244,17 @@
 							.user-avatar {
 								position: absolute;
 								left: 0;
+
+								:deep(.uv-avatar) {
+									width: 40rpx !important;
+									height: 40rpx !important;
+
+									image {
+										width: 100% !important;
+										height: 100% !important;
+									}
+
+								}
 							}
 
 						}
