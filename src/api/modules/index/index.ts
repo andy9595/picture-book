@@ -1,6 +1,5 @@
 import { request } from "@/utils/request";
 import { INDEX } from "@/api/api";
-import type { Response } from './http-interface'
 
 
 // 首页数据
@@ -10,7 +9,7 @@ export const indexData = () => {
 
 // 猜你喜欢
 export const yourLikes = (params = {}) => {
-	return request<Response>(INDEX.youLikes, 'GET', params)
+	return request<YourLikesResponse>(INDEX.youLikes, 'GET', params)
 }
 
 
@@ -200,4 +199,93 @@ export interface SlidingBlockJump {
 	jump_type : number;
 	pages ?: null | string;
 	url ?: null | string;
+}
+
+
+
+export interface YourLikesResponse {
+	code : number;
+	data : YourLikesData;
+	message : string;
+	status : string;
+	[property : string] : any;
+}
+
+export interface YourLikesData {
+	data : Datum[];
+	meta : Meta;
+	[property : string] : any;
+}
+
+export interface Datum {
+	/**
+	 * 难度级别，英文是蓝底色，中文是红底色
+	 */
+	difficulty_level : string;
+	/**
+	 * 点击量，有就显示，没有就隐藏
+	 */
+	hits : number;
+	/**
+	 * 图片
+	 */
+	image : string;
+	/**
+	 * 导读，有就显示，没有就隐藏
+	 */
+	intro : string;
+	/**
+	 * 跳转
+	 */
+	jump : Jump;
+	/**
+	 * 语言，en英文，cn中文
+	 */
+	language : string;
+	/**
+	 * 发布作者，有就显示，没有就隐藏
+	 */
+	published_author : string;
+	/**
+	 * 发布人头像，有就显示，没有就隐藏
+	 */
+	published_avatar : string;
+	/**
+	 * 阅读，free免费，vip付费
+	 */
+	read : string;
+	/**
+	 * 标题
+	 */
+	title : string;
+	[property : string] : any;
+}
+
+/**
+ * 跳转
+ */
+export interface Jump {
+	/**
+	 * 类型，1跳转webview、2跳转原生页面
+	 */
+	jump_type : number;
+	pages ?: null | string;
+	url ?: null | string;
+	[property : string] : any;
+}
+
+export interface Meta {
+	/**
+	 * 下一页游标
+	 */
+	next_cursor : null | string;
+	/**
+	 * 分页字段名字
+	 */
+	page_name : string;
+	/**
+	 * 上一页游标
+	 */
+	prev_cursor : null | string;
+	[property : string] : any;
 }

@@ -12,6 +12,8 @@
 	import TabsWrap from './components/tabs/index.vue'
 	// 精选绘本组件
 	import Handpicks from './components/handpicks/index.vue'
+	// 猜你喜欢组件
+	import YourLikes from './components/your-likes/index.vue'
 
 	// 请求首页数据的Loading
 	const loading = ref<boolean>(true);
@@ -34,35 +36,41 @@
 	// 获取首页基础数据
 	const getIndexBaeData = async () => {
 		loading.value = true;
-		const { code = 0, data, message = '' } = await indexData()
-		if (code === 200) {
-			setTimeout(() => {
+		try {
+			const { code = 0, data, message = '' } = await indexData()
+			if (code === 200) {
 				loading.value = false;
-			}, 3000)
-			// banner赋值
-			dataConfig.banners = data?.banners || [];
-			// 瓷片区赋值
-			dataConfig.porcelainList = [
-				{
-					image: data?.porcelain_en_icon,
-				},
-				{
-					image: data?.porcelain_ch_icon,
-				}
-			]
-			// 金刚区赋值
-			dataConfig.diamondList = data?.diamond_regions || []
-			// 选项卡区赋值
-			dataConfig.tabList = data?.sliding_block || []
-			// 精选绘本赋值
-			dataConfig.handpickList = data?.handpicks || []
-		} else {
+				// banner赋值
+				dataConfig.banners = data?.banners || [];
+				// 瓷片区赋值
+				dataConfig.porcelainList = [
+					{
+						image: data?.porcelain_en_icon,
+					},
+					{
+						image: data?.porcelain_ch_icon,
+					}
+				]
+				// 金刚区赋值
+				dataConfig.diamondList = data?.diamond_regions || []
+				// 选项卡区赋值
+				dataConfig.tabList = data?.sliding_block || []
+				// 精选绘本赋值
+				dataConfig.handpickList = data?.handpicks || []
+			} else {
+				toast.value && (toast.value as any).show({
+					type: 'default',
+					message: message
+				})
+			}
+		} catch {
 			toast.value && (toast.value as any).show({
 				type: 'default',
-				message: message
+				message: '请求异常...请再次刷新康康'
 			})
 		}
 	}
+
 	// 吐司提示Dom
 	const toast = ref(null);
 	// 页面加载时
@@ -87,6 +95,8 @@
 		<TabsWrap :loading="loading" :data="dataConfig.tabList" />
 		<!-- 精选绘本组件 -->
 		<Handpicks :loading="loading" :data="dataConfig.handpickList" />
+		<!-- 猜你喜欢组件 -->
+		<YourLikes />
 		<!-- 吐司提示组件 -->
 		<uv-toast :loading="loading" ref="toast" />
 	</view>
