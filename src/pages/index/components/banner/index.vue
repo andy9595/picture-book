@@ -1,6 +1,6 @@
 <script setup lang="ts">
 	// 导入骨架屏配置
-	import { skeletonConfig, bannerHeight } from './skeleton-config'
+	import { skeletonConfig } from './skeleton-config'
 	interface Props {
 		loading : boolean,
 		data : any
@@ -30,7 +30,6 @@
 
 
 <style lang="scss" scoped>
-
 	.banner-wrap {
 		padding: 22rpx 0;
 
