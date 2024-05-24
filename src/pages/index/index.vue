@@ -112,6 +112,10 @@
 
 
 <style lang="scss">
+	// 在此处引入是因为微信拥有样式穿透的配置项,抖音查看官网暂未发现这种配置项,导致自定义组件无法穿透uv-ui样式
+	// 顶部banner的deep特殊样式
+	@import './components/banner/index.scss';
+
 	.index-wrap {
 		padding: 0 30rpx;
 	}

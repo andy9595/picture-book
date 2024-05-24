@@ -1,10 +1,3 @@
-<script lang="ts">
-	export default {
-		options: {
-			styleIsolation: 'shared', // 解除样式隔离
-		},
-	}
-</script>
 <script setup lang="ts">
 	// 导入骨架屏配置
 	import { skeletonConfig, bannerHeight } from './skeleton-config'
@@ -37,30 +30,9 @@
 
 
 <style lang="scss" scoped>
+
 	.banner-wrap {
 		padding: 22rpx 0;
-
-		// 调整轮播图内容样式
-		:deep(.uv-swiper) {
-			background-color: #fff !important;
-			height: v-bind(bannerHeight) !important;
-
-			.uv-swiper__wrapper {
-				height: 100% !important;
-
-				.uv-swiper__wrapper__item__wrapper {
-					padding: 0 10rpx;
-					border-radius: 10rpx;
-					height: 100% !important;
-
-					.uv-swiper__wrapper__item__wrapper__image {
-						border-radius: 30rpx !important;
-						height: 100% !important;
-					}
-				}
-			}
-		}
-
 
 		@mixin flex($direction: row) {
 			/* #ifndef APP-NVUE */
