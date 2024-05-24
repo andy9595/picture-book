@@ -258,8 +258,8 @@
 								left: 0;
 
 								:deep(.uv-avatar) {
-									width: 20rpx !important;
-									height: 20rpx !important;
+									width: 40rpx !important;
+									height: 40rpx !important;
 
 									image {
 										width: 100% !important;
