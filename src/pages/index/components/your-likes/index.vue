@@ -33,10 +33,14 @@
 	const nextCursor = ref < string | null > ("");
 	// 获取猜你喜欢数据
 	const getYourLikesData = async () => {
+		const params = {
+			cursor: nextCursor.value
+		}
+		console.log(params)
 		try {
 			const {
 				code = 0, data, message = ''
-			} = await yourLikes()
+			} = await yourLikes(params)
 
 			if (code === 200) {
 				nextCursor.value = data?.meta.next_cursor;
@@ -55,8 +59,18 @@
 
 		}
 	}
+
+	// 下拉加载更多数据
+	// const loadStatus = ref('loadmore')
+
+
+
 	onMounted(() => {
 		getYourLikesData()
+	})
+
+	defineExpose({
+		getYourLikesData
 	})
 </script>
 <template>
@@ -140,6 +154,7 @@
 					</view>
 				</template>
 			</uv-waterfall>
+			<!-- <uv-load-more :status="loadStatus"></uv-load-more> -->
 		</view>
 	</view>
 </template>
@@ -147,9 +162,6 @@
 
 
 <style lang='scss' scoped>
-	/* $show-lines: 1; */
-	@import '@/uni_modules/uv-ui-tools/libs/css/variable.scss';
-
 	.wrap {
 		margin-top: 30rpx;
 
@@ -246,8 +258,8 @@
 								left: 0;
 
 								:deep(.uv-avatar) {
-									width: 40rpx !important;
-									height: 40rpx !important;
+									width: 20rpx !important;
+									height: 20rpx !important;
 
 									image {
 										width: 100% !important;

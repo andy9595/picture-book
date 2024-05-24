@@ -1,5 +1,5 @@
 <script setup lang="ts">
-	import { onReady, onPullDownRefresh } from '@dcloudio/uni-app';
+	import { onReady, onPullDownRefresh, onReachBottom } from '@dcloudio/uni-app';
 	// 引入接口
 	import { indexData } from '@/api/modules/index'
 	// 顶部轮播图组件
@@ -29,8 +29,9 @@
 		tabList: [],
 		// 精选绘本
 		handpickList: [],
-
 	})
+	// 吐司提示Dom
+	const toast = ref(null);
 
 
 	// 获取首页基础数据
@@ -71,8 +72,7 @@
 		}
 	}
 
-	// 吐司提示Dom
-	const toast = ref(null);
+
 	// 页面加载时
 	onReady(() => {
 		getIndexBaeData()
@@ -81,6 +81,13 @@
 	onPullDownRefresh(async () => {
 		await getIndexBaeData()
 		uni.stopPullDownRefresh()
+	})
+
+	// 猜你喜欢组件dom
+	const yourLikesDom = ref<InstanceType<typeof YourLikes> | null>(null);
+	// 页面触底时请求猜你喜欢组件里的接口
+	onReachBottom(() => {
+		yourLikesDom.value?.getYourLikesData()
 	})
 </script>
 <template>
@@ -96,7 +103,7 @@
 		<!-- 精选绘本组件 -->
 		<Handpicks :loading="loading" :data="dataConfig.handpickList" />
 		<!-- 猜你喜欢组件 -->
-		<YourLikes />
+		<YourLikes ref="yourLikesDom" />
 		<!-- 吐司提示组件 -->
 		<uv-toast :loading="loading" ref="toast" />
 	</view>
